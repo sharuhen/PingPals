@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "PingPals",
+    "slug": "PingPals",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "PingPals"
+}
