@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,10 +15,26 @@ export const styles = StyleSheet.create({
     resizeMode: 'cover', // Ensures the background image covers the entire container
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
   buttonContainer: {
     position: 'absolute',
     top: 20,
     right: 20,
+  },
+  logo: {
+    width: Platform.OS === 'web' ? 400 : 200, // Different width for web and mobile
+    height: Platform.OS === 'web' ? 400 : 200,
+    marginTop: 5,
+    marginBottom: 5,
+
+  },
+  
+  loginButton: {
+    backgroundColor: 'blue', // Customize background color for the login button
+    marginBottom: 5,
+  },
+  signUpButton: {
+    backgroundColor: 'green', // Customize background color for the sign-up button
   },
 });
