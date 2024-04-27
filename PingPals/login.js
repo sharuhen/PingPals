@@ -1,21 +1,40 @@
 import React from 'react';
-import { Platform, View, Text, TextInput, Button, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, ImageBackground } from 'react-native';
+import { collection, getDocs, query, where } from 'firebase/firestore'; // Corrected imports
+import { firestore } from './firebase';
 import { styles } from './styles';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    // For demonstration purposes, just alert the username and password
-    alert(`Logging in with Username: ${username}, Password: ${password}`);
+  const handleLogin = async () => {
+    try {
+      const usersRef = collection(firestore, 'users');
+      const q = query(usersRef, where('username', '==', username)); // Query to get user by username
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) { // Check if any documents found
+        querySnapshot.forEach(doc => {
+          const userData = doc.data();
+          if (userData.password === password) {
+            alert('Login successful');
+          } else {
+            alert('Incorrect password');
+          }
+        });
+      } else {
+        alert('Username not found');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   return (
     <ImageBackground source={require('./images/frontpage.jpg')} style={styles.background}>
       <View style={styles.container}>
-      <View style={styles.formContainer}>
+        <View style={styles.formContainer}>
           <Text style={styles.title}>Login Page</Text>
           <TextInput
             style={styles.input}
@@ -39,4 +58,3 @@ export default function LoginScreen({ navigation }) {
     </ImageBackground>
   );
 }
-

@@ -10,8 +10,6 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = React.useState('');
 
   const handleSignUp = async () => {
-    console.log('checking');
-
     try {
       // Get a reference to the users collection
       const usersCollectionRef = collection(firestore, 'users');
