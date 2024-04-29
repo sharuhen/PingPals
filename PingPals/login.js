@@ -18,7 +18,8 @@ export default function LoginScreen({ navigation }) {
         querySnapshot.forEach(doc => {
           const userData = doc.data();
           if (userData.password === password) {
-            alert('Login successful');
+            //go to dashboard page
+            navigation.navigate('dashboard', { user: userData });
           } else {
             alert('Incorrect password');
           }
